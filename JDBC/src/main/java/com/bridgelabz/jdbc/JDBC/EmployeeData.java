@@ -6,6 +6,34 @@ public class EmployeeData {
 
 	private String name;
 	private int id;
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public double getSalary() {
+		return salary;
+	}
+
+	public void setSalary(double salary) {
+		this.salary = salary;
+	}
+
+	public Date getStart() {
+		return start;
+	}
+
+	public void setStart(Date start) {
+		this.start = start;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	private double salary;
 	private Date start;
 
