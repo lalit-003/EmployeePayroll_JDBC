@@ -3,6 +3,8 @@ package com.bridgelabz.jdbc.JDBC;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -39,7 +41,7 @@ public class EmployeePayroll_Test {
 			Assert.assertTrue(result);
 		}
 		
-		//UC4 matching employee count for given date range
+		//UC5 matching employee count for given date range
 		@Test 
 		public void givenDateRange_WhenRetrieved_ShouldMatchEmployeeCount()
 		{
@@ -49,4 +51,22 @@ public class EmployeePayroll_Test {
     		employeePayrollData = employeePayrollService.getEmpPayrollDataForDataRange(startDate, endDate);
     		Assert.assertEquals(3, employeePayrollData.size());
 		}
+		
+		//UC6 functions like sum,max,average by gender
+		@Test
+		public void givenPayrollData_WhenAverageSalaryByGender_ShouldReturnProperValue()  {
+			employeePayrollService.readData();
+			Map<String,Double> averageSalaryByGender = employeePayrollService.readAverageSalaryByGender();
+			Assert.assertTrue(averageSalaryByGender.get("F").equals(3000000.0));
+			Assert.assertTrue(averageSalaryByGender.get("M").equals(1500000.0));
+		}
+		
+		@Test
+		public void givenPayrollData_WhenMaxSalary_ShouldReturnProperValue()  {
+			employeePayrollService.readData();
+			Double max =employeePayrollService.getMaxSalary();
+                 Assert.assertEquals(3000000.0, max,0.0);
+		}
+
+		
 }
