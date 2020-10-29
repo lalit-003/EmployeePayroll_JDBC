@@ -52,4 +52,13 @@ public class EmployeeData {
 	public String toString() {
 		return "Name=" + name + ", ID=" + id + ", Salary=" + salary + ", Start_date=" + start;
 	}
+	
+	@Override
+	public boolean equals(Object o)
+	{
+		if(this==o) return true;
+		if(o == null|| getClass() != o.getClass()) return false;
+		EmployeeData that = (EmployeeData) o;
+		return id == that.id && Double.compare(that.salary, salary) == 0 && name.equals(that.name);
+	}
 }

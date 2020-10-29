@@ -54,7 +54,7 @@ public class EmployeePayroll_DB {
 	
 	public boolean checkEmployeePayrollSyncWithDB(String name) {
 		try {
-			return employeePayrollDBService.getEmployeeData(name).get(0).getName().equals(getEmployeeData(name).getName());
+			return employeePayrollDBService.getEmployeeData(name).get(0).equals(getEmployeeData(name));
 		} catch (IndexOutOfBoundsException e) {
 		}
 		return false;

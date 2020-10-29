@@ -97,19 +97,4 @@ public class EmployeePayrollDBService {
 		return 0;
 	}
 	
-	public int updateSalaryUsingSQL(String name, Double salary) {
-		String sql = "UPDATE employee_payroll SET basic_pay = ? WHERE name = ? ";
-		try (Connection connection = getConnection()) {
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setDouble(1, salary);
-			preparedStatement.setString(2, name);
-			return preparedStatement.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return 0;
-	}
-
-
-
 }
