@@ -155,5 +155,28 @@ public class EmployeePayrollDBService {
          }
 		return maximumSalary;
 	}
+
+
+	public EmployeeData addEmployeeToPayroll(String name, double salary, LocalDate startDate, String gender) {
+		int emp_id = -1;
+		EmployeeData employeeData = null;
+		String sql = String.format("insert into employee_payroll(name,salary,start,gender)  values ('%s','%s','%s','%s');",name,salary,Date.valueOf(startDate),gender);
+		try(Connection connection=getConnection()) {
+			Statement statement = connection.createStatement();
+			int rowAffected = statement.executeUpdate(sql,Statement.RETURN_GENERATED_KEYS);
+			if(rowAffected == 1)
+			{
+				ResultSet resultSet = statement.getGeneratedKeys();
+				if(resultSet.next()) emp_id = resultSet.getInt(1);
+
+			}
+			employeeData = new EmployeeData(emp_id, name, salary, Date.valueOf(startDate));
+					} catch (SQLException exception) {
+						System.out.println("exception occured");
+               exception.printStackTrace();
+         }
+
+		return employeeData;
+	}
 	
 }
