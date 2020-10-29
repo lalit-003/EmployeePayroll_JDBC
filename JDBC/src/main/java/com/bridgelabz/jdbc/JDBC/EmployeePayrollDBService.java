@@ -56,13 +56,15 @@ public class EmployeePayrollDBService {
 	public List<EmployeeData> getEmployeeData(String name) {
 		List<EmployeeData> employeePayrollList = new ArrayList<>();
 		if (payRollDataStatement == null)
+		{
 			prepareStatementForEmployeeData();
-		try {
+		}
+			try {
 			payRollDataStatement.setString(1, name);
 			ResultSet resultSet = payRollDataStatement.executeQuery();
 			while (resultSet.next()) {
 				employeePayrollList.add(new EmployeeData(resultSet.getInt("id"), resultSet.getString("name"),
-						resultSet.getDouble("basic_pay"), resultSet.getDate("start")));
+						resultSet.getDouble("salary"), resultSet.getDate("start")));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
