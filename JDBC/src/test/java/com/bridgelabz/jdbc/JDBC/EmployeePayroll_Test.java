@@ -26,4 +26,14 @@ public class EmployeePayroll_Test {
 		boolean result = employeePayrollService.checkEmployeePayrollSyncWithDB("Terrisa");
 		Assert.assertTrue(result);
 	}
+	
+	// UC4 update and sync data in database (using prepared statement)
+		@Test
+		public void givenNewSalaryToEmployee_WhenUpdated_ShouldSyncWithDatabaseUsingPreparedStatement()
+		{
+			List<EmployeeData> employeePayrollData = employeePayrollService.readData();
+			employeePayrollService.updateEmployeeSalary("Terrisa",3000000.0);
+			boolean result = employeePayrollService.checkEmployeePayrollSyncWithDB("Terrisa");
+			Assert.assertTrue(result);
+		}
 }
