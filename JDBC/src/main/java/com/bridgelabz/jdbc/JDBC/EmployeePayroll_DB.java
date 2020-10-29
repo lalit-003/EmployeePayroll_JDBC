@@ -14,6 +14,17 @@ import java.util.List;
 public class EmployeePayroll_DB {
 	
 	List<EmployeeData> employeePayrollList = new ArrayList<>();
+	private EmployeePayrollDBService employeePayrollDBService;
+	
+	public EmployeePayroll_DB() {
+		employeePayrollDBService = EmployeePayrollDBService.getInstance();
+	}
+
+	public EmployeePayroll_DB(List<EmployeeData> employeePayrollList) {
+		this();
+		this.employeePayrollList = employeePayrollList;
+	}
+
 	
 	private static void listDrivers() {
 		Enumeration<Driver> driverList = DriverManager.getDrivers();
@@ -22,9 +33,6 @@ public class EmployeePayroll_DB {
 			System.out.println("	" + driverClass.getClass().getName());
 		}
 	}
-	
-	
-	
 	
 	public void updateEmployeeSalary(String name, double salary)
 	{
@@ -45,12 +53,12 @@ public class EmployeePayroll_DB {
 
 	
 	public boolean checkEmployeePayrollSyncWithDB(String name) {
-		EmployeeData employeePayrollData =  this.getEmployeeData(name);
-		return employeePayrollData.getName().equals(name);
+		try {
+			return employeePayrollDBService.getEmployeeData(name).get(0).getName().equals(getEmployeeData(name).getName());
+		} catch (IndexOutOfBoundsException e) {
+		}
+		return false;
 	}
-
-
-
 
 	public List<EmployeeData> readData() {
          this.employeePayrollList = new EmployeePayrollDBService().readData();
