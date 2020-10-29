@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -65,6 +66,11 @@ public class EmployeePayroll_DB {
 		return employeePayrollList;
 	}
 
+	public List<EmployeeData> getEmpPayrollDataForDataRange(LocalDate startDate, LocalDate endDate) {
+		return employeePayrollDBService.getEmpPayrollDataForDataRange( startDate,  endDate);
+	}
+
+	
 	
 }
 

@@ -1,11 +1,13 @@
 package com.bridgelabz.jdbc.JDBC;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,10 +43,7 @@ public class EmployeePayrollDBService {
 		{
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(sql);
-		while(resultSet.next()) {
-			employeePayrollList.add(new EmployeeData(resultSet.getInt("id"), resultSet.getString("name"),
-					resultSet.getDouble("salary"), resultSet.getDate("start")));
-		}
+		employeePayrollList = this.getList(resultSet);
 		}
 		catch(SQLException e)
 		{
@@ -62,11 +61,8 @@ public class EmployeePayrollDBService {
 			try {
 			payRollDataStatement.setString(1, name);
 			ResultSet resultSet = payRollDataStatement.executeQuery();
-			while (resultSet.next()) {
-				employeePayrollList.add(new EmployeeData(resultSet.getInt("id"), resultSet.getString("name"),
-						resultSet.getDouble("salary"), resultSet.getDate("start")));
-			}
-		} catch (Exception e) {
+			employeePayrollList = this.getList(resultSet);
+			} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return employeePayrollList;
@@ -96,5 +92,34 @@ public class EmployeePayrollDBService {
 		}
 		return 0;
 	}
+
+
+	public List<EmployeeData> getEmpPayrollDataForDataRange(LocalDate startDate, LocalDate endDate) {
+		String  sql=String.format("select * from employee_payroll where start between '%s' AND '%s';",
+				Date.valueOf(startDate),Date.valueOf(endDate));
+		return getEmployeePayrollDataUsinDB(sql);
+	}
+
+	public List<EmployeeData> getList( ResultSet resultSet) throws SQLException
+	{
+		List<EmployeeData> employeePayrollList= new ArrayList<>();
+		while(resultSet.next()) {
+			employeePayrollList.add(new EmployeeData(resultSet.getInt("id"),resultSet.getString("name"),
+					resultSet.getDouble("salary"),resultSet.getDate("start")));
+		}
+		return employeePayrollList;
+	}
+
+	private List<EmployeeData> getEmployeePayrollDataUsinDB(String sql) {
+		List<EmployeeData> employeePayrollList= new ArrayList<>();
+		try(Connection connection = this.getConnection()){
+			Statement statement=connection.createStatement();
+			ResultSet resultSet=statement.executeQuery(sql);
+			employeePayrollList=this.getList(resultSet);
+					}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println(employeePayrollList);
+	   return employeePayrollList;	}
 	
 }
