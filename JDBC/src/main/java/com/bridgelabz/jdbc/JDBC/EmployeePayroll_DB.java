@@ -141,6 +141,32 @@ public class EmployeePayroll_DB {
 		return count1+count2;
 	}
 
+	public void UpdateEmployeesToPayrollWithThreads(List<EmployeeData> asList) {
+		Map<Integer,Boolean> employeeAdditionStatus = new HashMap<Integer, Boolean>();
+		asList.forEach(employeePayrollData ->{
+			Runnable task = () -> {
+				employeeAdditionStatus.put(employeePayrollData.hashCode(),false);
+				System.out.println("Employee Being Updated: "+Thread.currentThread().getName());
+				this.updateEmployeeSalary(employeePayrollData.getName(),
+						employeePayrollData.getSalary());
+				employeeAdditionStatus.put(employeePayrollData.hashCode(), true);
+				System.out.println("Employee Updated : "+Thread.currentThread().getName());
+			};
+			Thread thread = new Thread(task,employeePayrollData.getName());
+			thread.start();
+
+		});
+		while(employeeAdditionStatus.containsValue(false)) {
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.println(this.employeePayrollList);	
+	}
+
+
 	
 	
 }

@@ -76,7 +76,7 @@ public class EmployeePayroll_Test {
 	}
 	
 	
-	//Multithreading UC1
+	//Multithreading  --- UC1,UC2,UC3,UC4
      // adding multiple entries to payroll
 	@Test
 	public void given6Employees_WhenAdded_ShouldMatchEmployeeEntries()
@@ -101,4 +101,30 @@ public class EmployeePayroll_Test {
 		
 		Assert.assertEquals(13, count+1);
 	}
-}
+	
+	@Test
+	public void givenEmployees_WhenUpdated_ShouldMatchEmployeeEntries()
+	{
+		EmployeeData[] arrayOfEmps = {
+				new EmployeeData( "Jeff Bezos", 950000.0),
+				new EmployeeData( "Bill Gates", 850000.0),
+				new EmployeeData( "Mark Zuckerberg", 650000.0)
+		};
+		employeePayrollService.readData();
+				Instant threadStart = Instant.now(); 
+		employeePayrollService.UpdateEmployeesToPayrollWithThreads(Arrays.asList(arrayOfEmps));
+		Instant threadEnd = Instant.now();
+		System.out.println("Duration With Thread: "+java.time.Duration.between(threadStart, threadEnd));
+		boolean result = employeePayrollService.checkEmployeePayrollSyncWithDB("Jeff Bezos");
+		Assert.assertTrue(result);
+		boolean result1 = employeePayrollService.checkEmployeePayrollSyncWithDB("Bill Gates");
+		Assert.assertTrue(result1);
+		boolean result2 = employeePayrollService.checkEmployeePayrollSyncWithDB("Mark Zuckerberg");
+		Assert.assertTrue(result2);
+		
+	}
+
+		
+		
+	}
+
