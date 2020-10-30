@@ -1,6 +1,7 @@
 package com.bridgelabz.jdbc.JDBC;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class EmployeeData {
 
@@ -36,12 +37,18 @@ public class EmployeeData {
 
 	private double salary;
 	private Date start;
+	private String gender;
 
 	public EmployeeData(int id, String name, double salary, Date start) {
               this.id = id;
               this.name = name;
               this.salary= salary;
               this.start=start;
+	}
+
+	public EmployeeData(int id, String name, String gender, double salary, LocalDate start) {
+            this(id,name,salary,Date.valueOf(start));
+            this.setGender(gender);
 	}
 
 	public String getName() {
@@ -60,5 +67,13 @@ public class EmployeeData {
 		if(o == null|| getClass() != o.getClass()) return false;
 		EmployeeData that = (EmployeeData) o;
 		return id == that.id && Double.compare(that.salary, salary) == 0 && name.equals(that.name);
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 }

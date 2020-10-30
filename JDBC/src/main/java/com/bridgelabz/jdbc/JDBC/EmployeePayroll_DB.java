@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -79,8 +80,27 @@ public class EmployeePayroll_DB {
 		return employeePayrollDBService.getmaximumSalary();
 	}
 
-	public void addEmployeeToPayroll(String name, double salary, LocalDate startDate, String gender) {
+	public void addEmployeeToPayroll(String name, double salary, LocalDate startDate, String gender) throws SQLException {
      employeePayrollList.add(employeePayrollDBService.addEmployeeToPayroll(name,salary,startDate,gender));		
+	}
+
+	public void addEmployeeToPayroll(List<EmployeeData> asList) {
+		asList.forEach(employeePayrollData -> {
+			System.out.println("Employee Being Added : " + employeePayrollData.getName());
+			try {
+				this.addEmployeeToPayroll(employeePayrollData.getName(),
+						employeePayrollData.getSalary(), employeePayrollData.getStart().toLocalDate()
+                        , employeePayrollData.getGender());
+				System.out.println("Employee Added: " + employeePayrollData.getName());
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}); 
+		System.out.println(this.employeePayrollList);		
+	}
+
+	public long countEntries() {
+		return employeePayrollList.size();
 	}
 
 	
