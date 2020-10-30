@@ -157,7 +157,7 @@ public class EmployeePayrollDBService {
 	}
 
 
-	public EmployeeData addEmployeeToPayroll(String name, double salary, LocalDate startDate, String gender) {
+	public EmployeeData addEmployeeToPayroll(String name, double salary, LocalDate startDate, String gender) throws SQLException {
 		int emp_id = -1;
 		EmployeeData employeeData = null;
 		String sql = String.format("insert into employee_payroll(name,salary,start,gender)  values ('%s','%s','%s','%s');",name,salary,Date.valueOf(startDate),gender);
@@ -201,6 +201,9 @@ public class EmployeePayrollDBService {
 		} catch (SQLException s) {
 				s.printStackTrace();
 			}
+		finally {
+			if(connection != null) connection.close();
+		}
 		
 		return employeeData;
 	}
