@@ -38,6 +38,11 @@ public class EmployeeData {
 	private double salary;
 	private Date start;
 	private String gender;
+	
+	public EmployeeData( String name, double salary) {
+        this.name = name;
+        this.salary= salary;
+}
 
 	public EmployeeData(int id, String name, double salary, Date start) {
               this.id = id;
