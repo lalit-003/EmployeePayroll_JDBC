@@ -161,7 +161,16 @@ public class EmployeePayrollDBService {
 		int emp_id = -1;
 		EmployeeData employeeData = null;
 		String sql = String.format("insert into employee_payroll(name,salary,start,gender)  values ('%s','%s','%s','%s');",name,salary,Date.valueOf(startDate),gender);
-		try(Connection connection=getConnection()) {
+		Connection connection = null;
+		try
+		{
+			 connection = this.getConnection();
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}	
+		try {
 			Statement statement = connection.createStatement();
 			int rowAffected = statement.executeUpdate(sql,Statement.RETURN_GENERATED_KEYS);
 			if(rowAffected == 1)
@@ -175,7 +184,24 @@ public class EmployeePayrollDBService {
 						System.out.println("exception occured");
                exception.printStackTrace();
          }
+	
 
+		try (Statement statement = connection.createStatement()) {
+			double deductions = salary * 0.2;
+			double taxablePay = salary - deductions;
+			double tax = taxablePay * 0.1;
+			double netPay = taxablePay = tax;
+			String sql1 = String
+					.format("INSERT INTO payroll_details(emp_id,basic_pay,deductions,taxable_pay,tax,net_pay) values "
+							+ "('%s','%s','%s','%s','%s','%s');", emp_id, salary, deductions, taxablePay, tax, netPay);
+			int rowAffected = statement.executeUpdate(sql1);
+			if (rowAffected == 1) {
+				employeeData = new EmployeeData(emp_id, name, salary, Date.valueOf(startDate));
+			}
+		} catch (SQLException s) {
+				s.printStackTrace();
+			}
+		
 		return employeeData;
 	}
 	
