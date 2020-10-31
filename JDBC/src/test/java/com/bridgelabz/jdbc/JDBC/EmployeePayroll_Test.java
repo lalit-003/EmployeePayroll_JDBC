@@ -115,12 +115,12 @@ public class EmployeePayroll_Test {
 		employeePayrollService.UpdateEmployeesToPayrollWithThreads(Arrays.asList(arrayOfEmps));
 		Instant threadEnd = Instant.now();
 		System.out.println("Duration With Thread: "+java.time.Duration.between(threadStart, threadEnd));
-		boolean result = employeePayrollService.checkEmployeePayrollSyncWithDB("Jeff Bezos");
-		Assert.assertTrue(result);
-		boolean result1 = employeePayrollService.checkEmployeePayrollSyncWithDB("Bill Gates");
+		boolean result1 = employeePayrollService.checkEmployeePayrollSyncWithDB("Jeff Bezos");
 		Assert.assertTrue(result1);
-		boolean result2 = employeePayrollService.checkEmployeePayrollSyncWithDB("Mark Zuckerberg");
+		boolean result2 = employeePayrollService.checkEmployeePayrollSyncWithDB("Bill Gates");
 		Assert.assertTrue(result2);
+		boolean result3 = employeePayrollService.checkEmployeePayrollSyncWithDB("Mark Zuckerberg");
+		Assert.assertTrue(result3);
 		
 	}
 
