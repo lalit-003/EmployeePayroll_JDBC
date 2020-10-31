@@ -188,24 +188,24 @@ public class EmployeePayrollDBService {
          }
 	
 
-//		try (Statement statement = connection.createStatement()) {
-//			double deductions = salary * 0.2;
-//			double taxablePay = salary - deductions;
-//			double tax = taxablePay * 0.1;
-//			double netPay = taxablePay = tax;
-//			String sql1 = String
-//					.format("INSERT INTO payroll_details(emp_id,basic_pay,deductions,taxable_pay,tax,net_pay) values "
-//							+ "('%s','%s','%s','%s','%s','%s');", emp_id, salary, deductions, taxablePay, tax, netPay);
-//			int rowAffected = statement.executeUpdate(sql1);
-//			if (rowAffected == 1) {
-//				employeeData = new EmployeeData(emp_id, name, salary, Date.valueOf(startDate));
-//			}
-//		} catch (SQLException s) {
-//				s.printStackTrace();
-//			}
-//		finally {
-//			if(connection != null) connection.close();
-//		}
+		try (Statement statement = connection.createStatement()) {
+			double deductions = salary * 0.2;
+			double taxablePay = salary - deductions;
+			double tax = taxablePay * 0.1;
+			double netPay = taxablePay = tax;
+			String sql1 = String
+					.format("INSERT INTO payroll_details(emp_id,basic_pay,deductions,taxable_pay,tax,net_pay) values "
+							+ "('%s','%s','%s','%s','%s','%s');", emp_id, salary, deductions, taxablePay, tax, netPay);
+			int rowAffected = statement.executeUpdate(sql1);
+			if (rowAffected == 1) {
+				employeeData = new EmployeeData(emp_id, name, salary, Date.valueOf(startDate));
+			}
+		} catch (SQLException s) {
+				s.printStackTrace();
+			}
+		finally {
+			if(connection != null) connection.close();
+		}
 		
 		return employeeData;
 	}
