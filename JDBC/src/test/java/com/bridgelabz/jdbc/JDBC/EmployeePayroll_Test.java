@@ -1,6 +1,7 @@
 package com.bridgelabz.jdbc.JDBC;
 
 import java.sql.Date;
+
 import java.sql.SQLException;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -19,14 +20,14 @@ public class EmployeePayroll_Test {
 	@Test
 	public void givenEmployeePayrollInDB_WhenRetrieved_ShouldMatchEmployeeCount() {
 		List<EmployeeData> EmployeeData = employeePayrollService.readData();
-		Assert.assertEquals(4, EmployeeData.size());
+		Assert.assertEquals(3, EmployeeData.size());
 	}
 
 	// UC3 update and sync data in database
 	@Test
 	public void givenNewSalaryToEmployee_WhenUpdated_ShouldSyncWithDatabase() {
 		List<EmployeeData> EmployeeData = employeePayrollService.readData();
-		employeePayrollService.updateEmployeeSalary("Terrisa", 3000000.0);
+		employeePayrollService.updateEmployeeSalary("Terrisa", 4000000.0);
 		boolean result = employeePayrollService.checkEmployeePayrollSyncWithDB("Terrisa");
 		Assert.assertTrue(result);
 	}
@@ -35,7 +36,7 @@ public class EmployeePayroll_Test {
 	@Test
 	public void givenNewSalaryToEmployee_WhenUpdated_ShouldSyncWithDatabaseUsingPreparedStatement() {
 		List<EmployeeData> EmployeeData = employeePayrollService.readData();
-		employeePayrollService.updateEmployeeSalary("Terrisa", 3000000.0);
+		employeePayrollService.updateEmployeeSalary("Terrisa", 4000000.0);
 		boolean result = employeePayrollService.checkEmployeePayrollSyncWithDB("Terrisa");
 		Assert.assertTrue(result);
 	}
@@ -47,7 +48,7 @@ public class EmployeePayroll_Test {
 		LocalDate startDate = LocalDate.of(2018, 01, 01);
 		LocalDate endDate = LocalDate.now();
 		EmployeeData = employeePayrollService.getEmpPayrollDataForDataRange(startDate, endDate);
-		Assert.assertEquals(4, EmployeeData.size());
+		Assert.assertEquals(3, EmployeeData.size());
 	}
 
 	// UC6 functions like sum,max,average by gender
@@ -55,7 +56,7 @@ public class EmployeePayroll_Test {
 	public void givenPayrollData_WhenAverageSalaryByGender_ShouldReturnProperValue() {
 		employeePayrollService.readData();
 		Map<String, Double> averageSalaryByGender = employeePayrollService.readAverageSalaryByGender();
-		Assert.assertTrue(averageSalaryByGender.get("F").equals(3000000.0));
+		Assert.assertTrue(averageSalaryByGender.get("F").equals(4000000.0));
 		//Assert.assertTrue(averageSalaryByGender.get("M").equals(1500000.0));
 	}
 

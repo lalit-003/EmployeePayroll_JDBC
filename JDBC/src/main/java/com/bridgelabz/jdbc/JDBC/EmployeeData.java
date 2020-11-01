@@ -38,6 +38,9 @@ public class EmployeeData {
 	private double salary;
 	private Date start;
 	private String gender;
+	private String address;
+	private String phoneNumber;
+	private String department;
 	
 	public EmployeeData( String name, double salary) {
         this.name = name;
@@ -56,13 +59,22 @@ public class EmployeeData {
             this.setGender(gender);
 	}
 
+	public EmployeeData(int id, String name, double salary, Date start, String gender, String phoneNumber,
+			String address, String department){
+          this(id,name,gender,salary,start.toLocalDate());
+          this.phoneNumber = phoneNumber;
+          this.address = address;
+          this.department = department;
+	}
+
 	public String getName() {
 		return name;
 	}
 
 	@Override
 	public String toString() {
-		return "Name=" + name + ", ID=" + id + ", Salary=" + salary + ", Start_date=" + start;
+		return "Name=" + name + ", ID=" + id + ", Salary=" + salary + ", Start_date=" + start+ ", "
+				+ " Gender = " +gender +",phoneNumber = "+phoneNumber +",address = "+address +",department = "+department;
 	}
 	
 	@Override
@@ -71,7 +83,9 @@ public class EmployeeData {
 		if(this==o) return true;
 		if(o == null|| getClass() != o.getClass()) return false;
 		EmployeeData that = (EmployeeData) o;
-		return id == that.id && Double.compare(that.salary, salary) == 0 && name.equals(that.name);
+		return id == that.id && Double.compare(that.salary, salary) == 0 && name.equals(that.name) &&
+				       gender.equals(that.gender) && address.equals(that.address) && phoneNumber.equals(that.phoneNumber)
+				       && department.equals(department);
 	}
 
 	public String getGender() {
@@ -80,5 +94,29 @@ public class EmployeeData {
 
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
 	}
 }

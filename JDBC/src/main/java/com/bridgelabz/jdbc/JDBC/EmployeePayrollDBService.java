@@ -63,12 +63,15 @@ public class EmployeePayrollDBService {
 			prepareStatementForEmployeeData();
 		}
 			try {
+				 System.out.println("4");
 			payRollDataStatement.setString(1, name);
 			ResultSet resultSet = payRollDataStatement.executeQuery();
 			employeePayrollList = this.getList(resultSet);
+			 System.out.println("5");
 			} catch (Exception e) {
 			e.printStackTrace();
 		}
+			 System.out.println("6");
 		return employeePayrollList;
 	}
 
@@ -99,7 +102,7 @@ public class EmployeePayrollDBService {
 
 
 	public List<EmployeeData> getEmpPayrollDataForDataRange(LocalDate startDate, LocalDate endDate) {
-		String  sql=String.format("select * from employee_payroll where start between '%s' AND '%s';",
+		String  sql=String.format("select * from employee_payroll where start_date between '%s' AND '%s';",
 				Date.valueOf(startDate),Date.valueOf(endDate));
 		return getEmployeePayrollDataUsinDB(sql);
 	}
@@ -109,7 +112,8 @@ public class EmployeePayrollDBService {
 		List<EmployeeData> employeePayrollList= new ArrayList<>();
 		while(resultSet.next()) {
 			employeePayrollList.add(new EmployeeData(resultSet.getInt("id"),resultSet.getString("name"),
-					resultSet.getDouble("salary"),resultSet.getDate("start")));
+					resultSet.getDouble("salary"),resultSet.getDate("start_date"),resultSet.getString("gender"),resultSet.getString("phoneNumber")
+					,resultSet.getString("address"),resultSet.getString("department") ));
 		}
 		return employeePayrollList;
 	}
@@ -162,7 +166,7 @@ public class EmployeePayrollDBService {
 	public EmployeeData addEmployeeToPayroll(String name, double salary, LocalDate startDate, String gender) throws SQLException {
 		int emp_id = -1;
 		EmployeeData employeeData = null;
-		String sql = String.format("insert into employee_payroll(name,salary,start,gender)  values ('%s','%s','%s','%s');",name,salary,Date.valueOf(startDate),gender);
+		String sql = String.format("insert into employee_payroll(name,salary,start_date,gender)  values ('%s','%s','%s','%s');",name,salary,Date.valueOf(startDate),gender);
 		Connection connection = null;
 		try
 		{
