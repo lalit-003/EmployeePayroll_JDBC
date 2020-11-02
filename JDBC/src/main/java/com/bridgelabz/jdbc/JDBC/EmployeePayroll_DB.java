@@ -27,7 +27,7 @@ public class EmployeePayroll_DB {
 
 	public EmployeePayroll_DB(List<EmployeeData> employeePayrollList) {
 		this();
-		this.employeePayrollList = employeePayrollList;
+		this.employeePayrollList = new ArrayList<>(employeePayrollList);
 	}
 
 	
