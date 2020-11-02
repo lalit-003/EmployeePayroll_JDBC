@@ -63,15 +63,12 @@ public class EmployeePayrollDBService {
 			prepareStatementForEmployeeData();
 		}
 			try {
-				 System.out.println("4");
 			payRollDataStatement.setString(1, name);
 			ResultSet resultSet = payRollDataStatement.executeQuery();
 			employeePayrollList = this.getList(resultSet);
-			 System.out.println("5");
 			} catch (Exception e) {
 			e.printStackTrace();
 		}
-			 System.out.println("6");
 		return employeePayrollList;
 	}
 
@@ -208,6 +205,19 @@ public class EmployeePayrollDBService {
 		} catch (SQLException s) {
 				s.printStackTrace();
 			}
+		try (Statement statement = connection.createStatement()) {
+			String sql1 = String
+					.format("INSERT INTO department(emp_id,department) values "
+							+ "('%s','%s');", emp_id, department);
+			int rowAffected = statement.executeUpdate(sql1);
+			if (rowAffected == 1) {
+				employeeData = new EmployeeData(emp_id, name, salary, Date.valueOf(startDate));
+			}
+		} catch (SQLException s) {
+				s.printStackTrace();
+			}
+
+		
 		finally {
 			if(connection != null) connection.close();
 		}
