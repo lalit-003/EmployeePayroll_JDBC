@@ -19,7 +19,6 @@ public class EmployeePayrollDBService {
 	private PreparedStatement payRollDataStatement;
 	private static EmployeePayrollDBService employeePayrollDBService;
 	
-	
 	public static EmployeePayrollDBService getInstance() {
 		if (employeePayrollDBService == null)
 			employeePayrollDBService = new EmployeePayrollDBService();
