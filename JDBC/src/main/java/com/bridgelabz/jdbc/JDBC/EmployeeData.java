@@ -67,6 +67,15 @@ public class EmployeeData {
           this.department = department;
 	}
 
+	public EmployeeData(int id, String name, double salary, LocalDate start, String gender, String phoneNumber, String address,
+			String department) {
+		this(id,name,salary,Date.valueOf(start));
+		this.gender = gender;
+		 this.phoneNumber = phoneNumber;
+         this.address = address;
+         this.department = department;
+	}
+
 	public String getName() {
 		return name;
 	}
