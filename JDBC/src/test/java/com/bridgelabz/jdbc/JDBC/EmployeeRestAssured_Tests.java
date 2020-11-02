@@ -49,7 +49,7 @@ public class EmployeeRestAssured_Tests {
 		Assert.assertEquals(2,entries);
 	}
 	
-	//adding new employee to json server and than counting
+	//adding new employee to json server and then counting
 	@Test
 	public void givenNewEmployee_WhenAdded_ShouldMatchCountand201ResponseAndCount() throws SQLException
 	{
@@ -68,7 +68,38 @@ public class EmployeeRestAssured_Tests {
 		long entries = employeePayroll.countEntries();
 		Assert.assertEquals(3,entries);
 	}
+	
+	//adding multiple employees to json server and then counting
+		@Test
+		public void givenMultipleEmployees_WhenAdded_ShouldMatchCountand201ResponseAndCount() throws SQLException
+		{
+			EmployeeData[] arrayOfEmps = getEmployeeList();
+			EmployeePayroll_DB employeePayroll;
+			employeePayroll = new EmployeePayroll_DB(Arrays.asList(arrayOfEmps));
+
+			EmployeeData[] arrayOfEmpPayrolls = {
+					new EmployeeData(0, "Jeff Bezos","M", 100000.0, LocalDate.now()),
+					new EmployeeData(0, "Bill Gates", "M",200000.0, LocalDate.now()),
+					new EmployeeData(0, "Mark Zuckerberg","M", 300000.0, LocalDate.now())
+			};
+			
+			for (EmployeeData employeeData : arrayOfEmpPayrolls)
+			{
+				Response response = addEmployeeToJsonServer(employeeData);
+				int statusCode = response.getStatusCode();
+				Assert.assertEquals(201,statusCode);
+				
+				employeeData = new Gson().fromJson(response.asString(),EmployeeData.class);
+				employeePayroll.addEmployeeToPayroll(employeeData);
+			}
+			long entries = employeePayroll.countEntries();
+			Assert.assertEquals(6,entries);
+		}
+		
+
+}
+
 
 	
 		
-	}
+	
