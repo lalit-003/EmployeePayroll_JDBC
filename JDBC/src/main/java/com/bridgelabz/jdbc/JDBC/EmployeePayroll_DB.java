@@ -173,6 +173,11 @@ public class EmployeePayroll_DB {
 		System.out.println(this.employeePayrollList);	
 	}
 
+	public void addEmployeeToPayroll(EmployeeData employeePayrollData) throws SQLException {
+		this.addEmployeeToPayroll(employeePayrollData.getName(), employeePayrollData.getSalary(), employeePayrollData.getStart().toLocalDate(),
+				                  employeePayrollData.getGender(), null, null, null);		
+	}
+
 
 	
 	
