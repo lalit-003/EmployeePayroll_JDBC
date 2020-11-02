@@ -43,9 +43,7 @@ public class EmployeePayroll_DB {
 	{
 		int result = new EmployeePayrollDBService().updateEmployeeSalaryResult(name, salary);
 		if(result == 0) return;
-		 System.out.println("2");
 		EmployeeData employeeData = this.getEmployeeData(name);
-		 System.out.println("3");
 		if(employeeData != null) employeeData.setSalary(salary);
 	}
 	
@@ -61,8 +59,8 @@ public class EmployeePayroll_DB {
 	
 	public boolean checkEmployeePayrollSyncWithDB(String name) {
 		try {
-			 System.out.println("7");
 			 System.out.println(employeePayrollDBService.getEmployeeData(name).get(0));
+			 System.out.println(getEmployeeData(name));
 			return employeePayrollDBService.getEmployeeData(name).get(0).equals(getEmployeeData(name));
 		} catch (IndexOutOfBoundsException e) {
 		}
@@ -71,7 +69,6 @@ public class EmployeePayroll_DB {
 
 	public List<EmployeeData> readData() {
          this.employeePayrollList = new EmployeePayrollDBService().readData();
-         System.out.println("1");
 		return employeePayrollList;
 	}
 
