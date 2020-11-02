@@ -28,6 +28,27 @@
       "salary": 300000,
       "start": "Nov 3, 2020",
       "gender": "M"
+    },
+    {
+      "name": "Jeff Bezos",
+      "id": 4,
+      "salary": 100000,
+      "start": "Nov 3, 2020",
+      "gender": "M"
+    },
+    {
+      "name": "Bill Gates",
+      "id": 5,
+      "salary": 200000,
+      "start": "Nov 3, 2020",
+      "gender": "M"
+    },
+    {
+      "name": "Mark Zuckerberg",
+      "id": 6,
+      "salary": 300000,
+      "start": "Nov 3, 2020",
+      "gender": "M"
     }
   ]
 }
