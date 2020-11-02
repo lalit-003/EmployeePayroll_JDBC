@@ -64,14 +64,14 @@ public class EmployeePayroll_Test {
 	public void givenPayrollData_WhenMaxSalary_ShouldReturnProperValue() {
 		employeePayrollService.readData();
 		Double max = employeePayrollService.getMaxSalary();
-		Assert.assertEquals(3000000.0, max, 0.0);
+		Assert.assertEquals(4000000.0, max, 0.0);
 	}
 
 	// UC8 new employee added to employee_payroll and payroll_details and synced wih database
 	@Test
 	public void givenNewEmployee_WhenAdded_ShouldSyncWithDatabase() throws SQLException {
 		employeePayrollService.readData();
-		employeePayrollService.addEmployeeToPayroll("Mark", 500000.0, LocalDate.now(), "M");
+		employeePayrollService.addEmployeeToPayroll("Mark", 500000.0, LocalDate.now(), "M","1232334332","Indore","Marketing");
 		boolean result = employeePayrollService.checkEmployeePayrollSyncWithDB("Mark");
 		Assert.assertTrue(result);
 	}
@@ -83,12 +83,12 @@ public class EmployeePayroll_Test {
 	public void given6Employees_WhenAdded_ShouldMatchEmployeeEntries()
 	{
 		EmployeeData[] arrayOfEmps = {
-				new EmployeeData(0, "Jeff Bezos","M", 100000.0, LocalDate.now()),
-				new EmployeeData(0, "Bill Gates","M", 200000.0, LocalDate.now()),
-				new EmployeeData(0, "Mark Zuckerberg","M", 300000.0, LocalDate.now()),
-				new EmployeeData(0, "Sundar","M", 600000.0, LocalDate.now()),
-				new EmployeeData(0, "Mukesh","M", 500000.0, LocalDate.now()),
-				new EmployeeData(0, "Anil","M", 300000.0, LocalDate.now())
+				new EmployeeData(0, "Jeff Bezos", 100000.0, LocalDate.now(),"M","1232334332","LA","Marketing"),
+				new EmployeeData(0, "Bill Gates", 200000.0, LocalDate.now(),"M","1232334332","NY","Marketing"),
+				new EmployeeData(0, "Mark Zuckerberg", 300000.0, LocalDate.now(),"M","1232334332","WahingtanDC","Marketing"),
+				new EmployeeData(0, "Sundar", 600000.0, LocalDate.now(),"M","1232334332","LA","Marketing"),
+				new EmployeeData(0, "Mukesh", 500000.0, LocalDate.now(),"M","1232334332","Mumbai","Marketing"),
+				new EmployeeData(0, "Anil", 300000.0, LocalDate.now(),"M","1232334332","Mumbai","Marketing")
 		};
 		employeePayrollService.readData();
 		Instant start = Instant.now();
@@ -124,8 +124,5 @@ public class EmployeePayroll_Test {
 		Assert.assertTrue(result3);
 		
 	}
-
-		
-		
 	}
 

@@ -1,5 +1,6 @@
 package com.bridgelabz.jdbc.JDBC;
 
+import java.awt.dnd.DropTargetAdapter;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -86,18 +87,21 @@ public class EmployeePayroll_DB {
 		return employeePayrollDBService.getmaximumSalary();
 	}
 
-	public void addEmployeeToPayroll(String name, double salary, LocalDate startDate, String gender) throws SQLException {
-     employeePayrollList.add(employeePayrollDBService.addEmployeeToPayroll(name,salary,startDate,gender));		
+	public void addEmployeeToPayroll(String name, double salary, LocalDate startDate, String gender,String phoneNumber,
+			                        String address,String department) throws SQLException {
+     employeePayrollList.add(employeePayrollDBService.addEmployeeToPayroll(name,salary,startDate,gender,phoneNumber,address,department));		
 	}
 
 	int count1=0;
+	
 	public void addEmployeeToPayroll(List<EmployeeData> asList) {
 		asList.forEach(employeePayrollData -> {
 			System.out.println("Employee Being Added : " + employeePayrollData.getName());
 			try {
 				this.addEmployeeToPayroll(employeePayrollData.getName(),
 						employeePayrollData.getSalary(), employeePayrollData.getStart().toLocalDate()
-                        , employeePayrollData.getGender());
+                        , employeePayrollData.getGender(), employeePayrollData.getPhoneNumber(), employeePayrollData.getAddress(), 
+                        employeePayrollData.getDepartment());
 				count1++;
 				System.out.println("Employee Added: " + employeePayrollData.getName());
 			} catch (SQLException e) {
@@ -122,8 +126,9 @@ public class EmployeePayroll_DB {
 				try {
 					this.addEmployeeToPayroll(employeePayrollData.getName(),
 							employeePayrollData.getSalary(), employeePayrollData.getStart().toLocalDate()
-	                        , employeePayrollData.getGender());
-					employeeAdditionStatus.put(employeePayrollData.hashCode(), true);
+	                        , employeePayrollData.getGender(), employeePayrollData.getPhoneNumber(), employeePayrollData.getAddress(), 
+	                        employeePayrollData.getDepartment());
+										employeeAdditionStatus.put(employeePayrollData.hashCode(), true);
 					System.out.println("Employee Added : "+Thread.currentThread().getName());
 					count2++;
 				} catch (SQLException e) {
