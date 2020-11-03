@@ -47,7 +47,14 @@ public class EmployeePayroll_DB {
 		if(employeeData != null) employeeData.setSalary(salary);
 	}
 	
-	private EmployeeData getEmployeeData(String name) {
+	public void updateEmployeeSalaryJSONIO(String name, double salary)
+	{
+		EmployeeData employeeData = this.getEmployeeData(name);
+		if(employeeData != null) employeeData.setSalary(salary);
+	}
+
+	
+	public EmployeeData getEmployeeData(String name) {
       EmployeeData employeeData ;
       employeeData = this.employeePayrollList.stream()
     		             .filter(employeePayrollDataItem  ->  (employeePayrollDataItem.getName()).equals(name))

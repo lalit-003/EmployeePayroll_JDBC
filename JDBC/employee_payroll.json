@@ -1,15 +1,10 @@
 {
   "employee_payroll": [
     {
-      "id": 1,
       "name": "Jeff Bezos",
-      "gender": "M",
-      "salary": 100000,
-      "startDate": {
-        "year": 2020,
-        "month": 11,
-        "day": 1
-      }
+      "id": 1,
+      "salary": 500000,
+      "gender": "M"
     },
     {
       "id": 2,

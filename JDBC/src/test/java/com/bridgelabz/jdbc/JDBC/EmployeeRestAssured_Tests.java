@@ -95,7 +95,27 @@ public class EmployeeRestAssured_Tests {
 			long entries = employeePayroll.countEntries();
 			Assert.assertEquals(6,entries);
 		}
-		
+	
+	//updating employee data/salary to json server
+	  @Test 
+	  public void givenNewSalaryForEmployee_WhenUpdated_ShouldMatch200Response()
+	  {
+			EmployeeData[] arrayOfEmps = getEmployeeList();
+			EmployeePayroll_DB employeePayroll;
+			employeePayroll = new EmployeePayroll_DB(Arrays.asList(arrayOfEmps));
+			
+			employeePayroll.updateEmployeeSalaryJSONIO("Jeff Bezos", 500000.0);
+			EmployeeData employeePayrollData = employeePayroll.getEmployeeData("Jeff Bezos");
+			
+			 String empJson = new Gson().toJson(employeePayrollData);
+	          RequestSpecification request = RestAssured.given();
+	          request.header("Content-Type","application/json");
+	          request.body(empJson);
+	          
+	          Response response = request.put("/employee_payroll/"+employeePayrollData.getId());
+				int statusCode = response.getStatusCode();
+				Assert.assertEquals(200,statusCode);
+	  }
 
 }
 
