@@ -96,7 +96,7 @@ public class EmployeeRestAssured_Tests {
 			Assert.assertEquals(6,entries);
 		}
 	
-	//updating employee data/salary to json server
+	//updating employee data/salary In json server
 	  @Test 
 	  public void givenNewSalaryForEmployee_WhenUpdated_ShouldMatch200Response()
 	  {
@@ -116,6 +116,29 @@ public class EmployeeRestAssured_Tests {
 				int statusCode = response.getStatusCode();
 				Assert.assertEquals(200,statusCode);
 	  }
+	  
+	//deleting employee from  json server
+	  @Test 
+	  public void givenEmployeeToDelete_WhenDeleted_ShouldMatch200Response()
+	  {
+			EmployeeData[] arrayOfEmps = getEmployeeList();
+			EmployeePayroll_DB employeePayroll;
+			employeePayroll = new EmployeePayroll_DB(Arrays.asList(arrayOfEmps));
+			
+			EmployeeData employeePayrollData = employeePayroll.getEmployeeData("Jeff Bezos");
+			
+	          RequestSpecification request = RestAssured.given();
+	          request.header("Content-Type","application/json");
+	          Response response = request.delete("/employee_payroll/"+employeePayrollData.getId());
+				int statusCode = response.getStatusCode();
+				Assert.assertEquals(200,statusCode);
+				
+				employeePayroll.deleteFromemployeePayrollJSON(employeePayrollData.getName());
+				long entries = employeePayroll.countEntries();
+				Assert.assertEquals(5,entries);
+	  }
+	  
+	  
 
 }
 

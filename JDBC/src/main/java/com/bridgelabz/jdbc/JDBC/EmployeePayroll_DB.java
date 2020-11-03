@@ -185,6 +185,11 @@ public class EmployeePayroll_DB {
 				                  employeePayrollData.getGender(), null, null, null);		
 	}
 
+	public void deleteFromemployeePayrollJSON(String name) {
+      EmployeeData employeeData = this.getEmployeeData(name);
+      employeePayrollList.remove(employeeData);
+	}
+
 
 	
 	

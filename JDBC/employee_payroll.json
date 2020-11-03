@@ -1,12 +1,6 @@
 {
   "employee_payroll": [
     {
-      "name": "Jeff Bezos",
-      "id": 1,
-      "salary": 500000,
-      "gender": "M"
-    },
-    {
       "id": 2,
       "name": "Bill Gates",
       "gender": "M",
